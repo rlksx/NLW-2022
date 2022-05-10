@@ -1,4 +1,4 @@
-/*============================== GERAL ==============================*/
+/*============================== GERAL =================================*/
 * {
   margin: 0;
   padding: 0;
@@ -7,15 +7,22 @@
 
 :root {
   --primary-color: hsl(170, 100%, 26%);
-  --headline: hsl(210, 11%, 15%);
+  --grey-headline: hsl(210, 11%, 15%);
   --paragraph: hsl(210, 9%, 31%);
 
   --brand-beige: hsl(39, 100%, 97%);
   --brand-light: hsl(148, 23%, 89%);
 
+  --brand-green-light: hsl(180, 14%, 97%);
+
   font-size: 62.5%; /* 1rem = 10px */
 
   --nav-height: 7.2rem;
+}
+
+html {
+  scroll-behavior: smooth;
+  /* scroll suave */
 }
 
 html,
@@ -30,64 +37,228 @@ body {
 
   text-align: center;
 
-  overflow: overlay; /* sobre põe  conteudo do body no scroll */
+  overflow: overlay;
+
+  background-color: var(--brand-green-light);
 }
 
 .wrapper {
   width: 37.5rem;
   margin-inline: auto;
-  padding-inline: 2.4rem; /* inline = left + right */
+  padding-inline: 2.4rem; /* left + right */
 }
 
 ul {
   list-style: none;
 }
 
-/*=========================== GERALHEADER ============================*/
-header {
-  margin-top: calc(4.1rem + var(--nav-height));
-  /* margin-top + a margem da nav */
+img {
+  max-width: 100%;
+  /* limitando imagens para o tanho ideal */
 }
 
-header::before {
-  /* criando variável pelo css */
-  /* o fundo verde */
-  content: ''; /* sem conteúdo */
+section {
+  padding-block: 10rem; /* top + bottom */
+}
+
+section header h4 {
+  font-size: 1.4rem;
+  font-weight: 700; /* largura da font */
+  line-height: 150%; /* tamanho da linha da font */
+  letter-spacing: 0.08rem; /* espaço entre as letras do conteúdo */
+  color: var(--primary-color);
+
+  text-transform: uppercase;
+  margin-bottom: 1.6rem;
+}
+
+section header h2 {
+  font-size: 3rem;
+  line-height: 3.9rem;
+
+  color: var(--grey-headline);
+}
+
+section header h1 {
+  font-size: 3.4rem;
+  color: var(--grey-headline);
+  line-height: 130%;
+
+  margin-bottom: 2.4rem;
+}
+
+section .content p {
+  font-weight: 400;
+  font-size: 1.6rem;
+  line-height: 150%;
+
+  color: var(--paragraph);
+}
+/*============================ NAVIGATION ==============================*/
+nav {
+  display: flex;
+
+  height: var(--nav-height);
+
+  position: fixed;
+  top: 0;
+  width: 100vw;
+
+  z-index: 100;
+}
+
+nav .wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+nav.scroll {
+  background: var(--primary-color);
+}
+
+nav.scroll .logo path {
+  fill: white;
+}
+
+nav.scroll button path {
+  stroke: white;
+}
+
+nav button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/*============================ MENU-EXPANDED ===========================*/
+body.menu-expanded {
+  overflow: hidden;
+  /* não permite rolar o scroll da pagina */
+}
+
+body.menu-expanded > :not(nav) {
+  /* todos da classe menu-expanded exceto o nav */
+  visibility: hidden;
+}
+
+.menu,
+.close-menu,
+body.menu-expanded .open-menu {
+  opacity: 0;
+  visibility: hidden;
+}
+
+body.menu-expanded .menu,
+body.menu-expanded .close-menu {
+  opacity: 1;
+  visibility: visible;
+}
+
+.menu {
+  transform: translateY(100%);
+  /* leva o menu para baixo da tela */
+}
+
+body.menu-expanded .menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: var(--primary-color);
+
+  width: 100vw;
+  height: 100vh;
+
+  padding-top: var(--nav-height);
+
+  transition: transform 400ms;
+  transform: translateY(0);
+}
+
+.menu ul:nth-child(1) {
+  display: flex;
+  flex-direction: column;
+  gap: 4.8rem; /* define espaço entre os conteúdos do flex */
+
+  margin-top: 6rem;
+
+  font-weight: 700;
+  font-size: 2.4rem;
+  line-height: 3.1rem;
+}
+
+.menu ul li a {
+  color: white;
+  text-decoration: none;
+}
+
+.menu .button {
+  background: white;
+  border-radius: 4rem;
+  font-weight: 700;
+  font-size: 1.8rem;
+  line-height: 2.3rem;
+  text-transform: uppercase;
+  text-decoration: none;
+
+  color: var(--primary-color);
+
+  display: inline-block;
+  padding: 16px 32px; /* height width */
+  margin-top: 4.8rem;
+  margin-bottom: 8rem;
+}
+
+.social-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3.2rem;
+}
+
+body.menu-expanded .logo,
+body.menu-expanded button {
+  position: relative;
+  z-index: 100;
+}
+
+body.menu-expanded .logo path {
+  fill: white;
+}
+
+body.menu-expanded button path {
+  stroke: white;
+}
+
+/*=============================== #HOME ================================*/
+#home {
+  padding-top: calc(4.1rem + var(--nav-height));
+}
+
+#home::before {
+  content: '';
   width: 100%;
   height: calc(108rem + var(--nav-height));
   background-color: var(--brand-light);
   display: block;
 
-  position: absolute; /* permite sobreposição */
+  position: absolute;
   top: 0;
   left: 0;
-  z-index: -1; /* fica atraz de todas as itens */
+  z-index: -1;
+  /* "camadas" de visualização */
 }
 
-header h4 {
-  font-size: 1.4rem;
-  color: var(--primary-color);
-  margin-bottom: 1.6rem;
-}
-
-header h1 {
-  font-size: 3.4rem;
-  color: var(--headline);
-  line-height: 130%; 
-
-  margin-bottom: 2.4rem;
-}
-
-header p {
+#home p {
   font-size: 1.8rem;
-  line-height: 150%; /* define o espaçamento entre as linhas */
-  font-weight: 400; /* define a espessura da font. obs : o padrão é 700 */
+  line-height: 150%;
+  font-weight: 400;
   color: var(--paragraph);
 
   margin-bottom: 3.2rem;
 }
 
-header button {
+#home button {
   background: var(--primary-color);
 
   border: none;
@@ -112,14 +283,14 @@ header button {
   margin-left: auto;
 }
 
-header img {
+#home img {
   width: 26.4rem;
   display: block;
   margin-inline: auto;
-  object-position: 0 2rem;
+  object-position: 0 2rem; /* redimensiona a imagem */
 }
 
-.stats {
+#home .stats {
   width: 32.7rem;
   padding-block: 4rem;
   margin-inline: auto;
@@ -129,12 +300,12 @@ header img {
   border-radius: 0.6rem;
 
   display: flex;
-  flex-direction: column;
+  flex-direction: column; /* transforma o flex em coluna */
   justify-content: center;
   gap: 6rem;
 }
 
-.stat h3 {
+#home .stat h3 {
   font-size: 4.8rem;
   color: var(--headline);
   line-height: 130%;
@@ -142,146 +313,49 @@ header img {
   margin-bottom: 0.4rem;
 }
 
-.stat p {
+#home .stat p {
   margin: 0;
   color: var(--primary-color);
   font-size: 1.6rem;
   line-height: 150%;
 }
 
-/*======================= GERAL NAVIGATION ==========================*/
-nav {
-  height: var(--nav-height);
-  
-  display: flex; 
-
-  position: fixed;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%); /* usado para o nav ficar no centro */
+/*=============================== SERVICES =============================*/
+#services header h2 {
+  margin-bottom: 6rem;
 }
 
-nav .wrapper {
+#services .cards {
   display: flex;
-  align-items: center;
-  justify-content: space-between; 
-/* define os espaços exatos entre os itens */
-}
-
-nav.scroll {
-  background: var(--primary-color);
-  width: 100vw;
-  position: fixed;
-  top: 0;
-}
-
-nav.scroll svg:nth-child(1) path {
-  fill: white;
-}
-
-nav.scroll button path {
-  stroke: white;
-}
-
-nav button {
-  background: none;
-  border: none;
-  cursor: pointer;
-}
-
-/*======================== GERAL MENU-EXPANDED ========================*/
-body.menu-expanded {
-  overflow: hidden;
-}
-
-body.menu-expanded > :not(nav) {
-  display: none;
-  /* retira todo o conteúdo, exeto o do nav */
-}
-
-.menu,
-.close-menu,
-body.menu-expanded .open-menu {
-  opacity: 0;
-  visibility: hidden;
-  /* esconde os conteúdos do menu extendido */
-}
-
-body.menu-expanded .menu,
-body.menu-expanded .close-menu {
-  opacity: 1;
-  visibility: visible;
-  /* deixa o menu extendido visível */
-}
-
-body.menu-expanded .menu {
-  position: fixed;
-  top: 0;
-  left: 0;
-  background: var(--primary-color);
-
-  width: 100vw;
-  height: 100vh;
-
-  padding-top: var(--nav-height);
-}
-
-body.menu-expanded nav {
-  position: relative;
-}
-
-.menu ul:nth-child(1) {
-  display: flex;
-  flex-direction: column; /* define o flex como coluna */
-  gap: 4.8rem; /* espaço entre os itens */
-
-  margin-top: 6rem;
-
-  font-weight: 700;
-  font-size: 2.4rem;
-  line-height: 3.1rem;
-}
-
-.menu ul li a {
-  color: white;
-  text-decoration: none;
-}
-
-.menu .button {
-  background: white;
-  border-radius: 4rem;
-  font-weight: 700;
-  font-size: 1.8rem;
-  line-height: 2.3rem;
-  text-transform: uppercase; 
-  text-decoration: none;
-
-  color: var(--primary-color);
-
-  display: inline-block;
-  padding: 16px 32px;
-
-  margin-top: 4.8rem;
-  margin-bottom: 8rem;
-}
-
-.social-links {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
   gap: 3.2rem;
 }
 
-body.menu-expanded .logo,
-body.menu-expanded button {
-  position: relative;
-  z-index: 10;
+#services .card {
+  padding: 2.4rem;
+  text-align: left;
+
+  background: white;
+
+  border: 1px solid var(--brand-light);
+  border-radius: 0.6rem;
 }
 
-body.menu-expanded .logo path {
-  fill: white;
+#services .card h3 {
+  margin-block: 1.6rem;
 }
 
-body.menu-expanded button path {
-  stroke: white;
+/*=============================== ABOUT ================================*/
+#about {
+  text-align: left;
+  background-color: var(--brand-beige);
+}
+
+#about header h2 {
+  margin-bottom: 2.4rem;
+}
+
+#about .content p {
+  margin-top: 2.4rem;
+  margin-bottom: 6rem;
 }
