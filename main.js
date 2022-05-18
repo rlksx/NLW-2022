@@ -5,11 +5,26 @@
 // openMenu = variável criada
 // closeMenu = variável criada
 // menu-expanded = classe do menu expandido criada no css.
+// Ctrl + f = procurar no editor.
+
+window.addEventListener('scroll', onScroll)
+
 function onScroll() {
+  showNavOnScroll()
+  showBackToTopOnScroll()
+}
+function showNavOnScroll() {
   if (scrollY > 0) {
     navigation.classList.add('scroll')
   } else {
     navigation.classList.remove('scroll')
+  }
+}
+function showBackToTopOnScroll(){
+  if (scrollY > 750) {
+    backToTop.classList.add('show')
+  } else {
+    backToTop.classList.remove('show')
   }
 }
 
