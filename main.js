@@ -20,7 +20,7 @@ function showNavOnScroll() {
     navigation.classList.remove('scroll')
   }
 }
-function showBackToTopOnScroll(){
+function showBackToTopOnScroll() {
   if (scrollY > 750) {
     backToTop.classList.add('show')
   } else {
@@ -39,7 +39,7 @@ function closeMenu() {
 ScrollReveal({
   origin: 'top',
   distance: '30px',
-  duration: 900,
+  duration: 900
 }).reveal(`
   #home, 
   #home img, 
