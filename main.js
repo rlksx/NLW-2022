@@ -1,18 +1,43 @@
-// onScroll = variável criada
-// scrollY = eixo Y do rolamento
-// scroll = classe criada no css e sendo adicionada ou removida pelo js.
-
-// openMenu = variável criada
-// closeMenu = variável criada
-// menu-expanded = classe do menu expandido criada no css.
-// Ctrl + f = procurar no editor.
-
 window.addEventListener('scroll', onScroll)
 
+onScroll()
 function onScroll() {
   showNavOnScroll()
-  showBackToTopOnScroll()
+  showBackToTopButtonOnScroll()
+
+  activateMenuAtCurrentSection(home)
+  activateMenuAtCurrentSection(services)
+  activateMenuAtCurrentSection(about)
+  activateMenuAtCurrentSection(contact)
 }
+
+function activateMenuAtCurrentSection(section) {
+  const targetLine = scrollY + innerHeight / 2
+
+  // verificar se a seção passou da linha
+  // quais dados vou precisar?
+  const sectionTop = section.offsetTop
+  const sectionHeight = section.offsetHeight
+  const sectionTopReachOrPassedTargetline = targetLine >= sectionTop
+
+  // verificar se a base está abaixo da linha alvo
+
+  const sectionEndsAt = sectionTop + sectionHeight
+  const sectionEndPassedTargetline = sectionEndsAt <= targetLine
+
+  // limites da seção
+  const sectionBoundaries =
+    sectionTopReachOrPassedTargetline && !sectionEndPassedTargetline
+
+  const sectionId = section.getAttribute('id')
+  const menuElement = document.querySelector(`.menu a[href*=${sectionId}]`)
+
+  menuElement.classList.remove('active')
+  if (sectionBoundaries) {
+    menuElement.classList.add('active')
+  }
+}
+
 function showNavOnScroll() {
   if (scrollY > 0) {
     navigation.classList.add('scroll')
@@ -20,11 +45,12 @@ function showNavOnScroll() {
     navigation.classList.remove('scroll')
   }
 }
-function showBackToTopOnScroll() {
-  if (scrollY > 750) {
-    backToTop.classList.add('show')
+
+function showBackToTopButtonOnScroll() {
+  if (scrollY > 650) {
+    backToTopButton.classList.add('show')
   } else {
-    backToTop.classList.remove('show')
+    backToTopButton.classList.remove('show')
   }
 }
 
@@ -36,10 +62,11 @@ function closeMenu() {
   document.body.classList.remove('menu-expanded')
 }
 
+// library scroll reveal
 ScrollReveal({
   origin: 'top',
   distance: '30px',
-  duration: 900
+  duration: 700
 }).reveal(`
   #home, 
   #home img, 
