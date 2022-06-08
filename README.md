@@ -1,2 +1,2 @@
-# NLW-2022
-rocketseat nlw return project
+# 🚀 Next Level Week Return (Discovery) 🚀
+Rockseat event Next Level Week (NLW) Return!
